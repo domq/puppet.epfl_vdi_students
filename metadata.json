@@ -1,0 +1,20 @@
+{
+  "name": "domq/epflsti_vdi_students",
+  "version": "0.0.1",
+  "author": "domq",
+  "summary": "Configure VDI student VMs the EPFL STI way",
+  "license": "MIT",
+  "source": "https://github.com/epfl-sti/puppet.epflsti_vdi_students",
+  "issues_url": "https://github.com/epfl-sti/puppet.epflsti_vdi_students/issues",
+  "project_page": "https://github.com/epfl-sti/puppet.epflsti_vdi_students",
+  "dependencies": [
+    {
+        "name":"puppetlabs-stdlib",
+        "version_requirement":">= 1.0.0"
+    },
+    {
+      "name": "herculesteam-augeasproviders_pam",
+      "version_requirement": ">= 0.0.0"
+    }
+  ]
+}
