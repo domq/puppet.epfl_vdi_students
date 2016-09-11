@@ -7,7 +7,7 @@ class epflsti_vdi_students(
   class { "epfl_sso": }
   class { "epfl_sso::krb5": }
 
-  exec { "curl -O- https://raw.githubusercontent.com/epfl-sti/FreeRDS/master/build-freerds.sh | bash":
+  exec { "wget -O- https://raw.githubusercontent.com/epfl-sti/FreeRDS/master/build-freerds.sh | bash":
     path => $::path,
     creates => "/opt/FreeRDS/bin/freerds-manager"
   }
