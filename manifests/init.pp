@@ -13,12 +13,11 @@ class epflsti_vdi_students(
   }
   
   if ($finalize) {
-    file { ["/opt/FreeRDS/bin/freerds-server.log",
-            "/opt/FreeRDS/bin/freerds-manager.log",
-            "/var/log/auth.log",
-            "/tmp/user.log"]:
-              ensure => absent
+    stage { "finalize":
+      require => Stage["main"]
     }
-    exec { "/sbin/poweroff": }
+    class { "epflsti_vdi_students::private::finalize":
+      stage => "finalize"
+    }
   }
 }
