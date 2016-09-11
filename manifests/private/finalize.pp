@@ -1,6 +1,6 @@
 # Class: epflsti_vdi_students::private::finalize
 #
-# Remove all log files, and power off.
+# Reset all log files, and power off.
 #
 # This is to be run prior to creating a new snapshot in the template VM.
 class epflsti_vdi_students::private::finalize() {
