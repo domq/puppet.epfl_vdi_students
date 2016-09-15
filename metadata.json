@@ -1,7 +1,7 @@
 {
-  "name": "domq/epflsti_vdi_students",
+  "name": "epflsti/epflsti_vdi_students",
   "version": "0.0.1",
-  "author": "domq",
+  "author": "stiitops@groupes.epfl.ch",
   "summary": "Configure VDI student VMs the EPFL STI way",
   "license": "MIT",
   "source": "https://github.com/epfl-sti/puppet.epflsti_vdi_students",
@@ -15,6 +15,10 @@
     {
       "name": "herculesteam-augeasproviders_pam",
       "version_requirement": ">= 0.0.0"
+    },
+    {
+      "name": "epflsti-epfl_sso",
+      "version_requirement": ">= 0.2.0"
     }
   ]
 }
