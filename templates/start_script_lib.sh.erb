@@ -11,8 +11,5 @@ run_important_command() {
 }
 
 start_X() {
-  (
-      exec > /var/log/Xrdp."$DISPLAY".log 2>&1
-      run_important_command Xrdp "$DISPLAY" "$FREERDS_DESKTOP_WIDTH" "$FREERDS_DESKTOP_HEIGHT" "$FREERDS_DESKTOP_DEPTH"
-  )
+    run_important_command Xrdp "$DISPLAY" "$FREERDS_DESKTOP_WIDTH" "$FREERDS_DESKTOP_HEIGHT" "$FREERDS_DESKTOP_DEPTH"
 }
