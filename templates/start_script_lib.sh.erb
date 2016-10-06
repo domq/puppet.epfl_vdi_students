@@ -10,11 +10,17 @@ run_important_command() {
     trap "kill $child_pid" SIGHUP SIGTERM SIGQUIT EXIT
 }
 
+fatal() {
+    echo >&2 "$@"
+    exit 2
+}
+
 start_X() {
+    local sock=/tmp/.X11-unix/X"$(echo "$DISPLAY" | sed 's/.*://')"
+    [ -S "$sock" ] && fatal "$sock already exists"
     run_important_command Xrds "$DISPLAY" \
        -geometry "$FREERDS_DESKTOP_WIDTH"x"$FREERDS_DESKTOP_HEIGHT" \
        -depth "$FREERDS_DESKTOP_DEPTH" -dpi "$FREERDS_DESKTOP_DPI"
-    local sock=/tmp/.X11-unix/X"$(echo "$DISPLAY" | sed 's/.*://')"
     for wait in $(seq 1 10); do 
         if [ -S "$sock" ]; then break; else sleep 0.1; fi
     done
