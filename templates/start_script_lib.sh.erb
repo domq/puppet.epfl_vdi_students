@@ -11,5 +11,11 @@ run_important_command() {
 }
 
 start_X() {
-    run_important_command Xrds "$DISPLAY" "$FREERDS_DESKTOP_WIDTH" "$FREERDS_DESKTOP_HEIGHT" "$FREERDS_DESKTOP_DEPTH"
+    run_important_command Xrds "$DISPLAY" \
+       -geometry "$FREERDS_DESKTOP_WIDTH"x"$FREERDS_DESKTOP_HEIGHT" \
+       -depth "$FREERDS_DESKTOP_DEPTH" -dpi "$FREERDS_DESKTOP_DPI"
+    local sock=/tmp/.X11-unix/X"$(echo "$DISPLAY" | sed 's/.*://')"
+    for wait in $(seq 1 10); do 
+        if [ -S "$sock" ]; then break; else sleep 0.1; fi
+    done
 }
