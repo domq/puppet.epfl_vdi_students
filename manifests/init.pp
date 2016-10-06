@@ -38,6 +38,8 @@ class epflsti_vdi_students(
       fail("${::osfamily} not supported for pam_group configuration")
     }
   }
+
+  class { "epflsti_vdi_students::private::freerds": }
   
   if ($finalize) {
     stage { "finalize":
