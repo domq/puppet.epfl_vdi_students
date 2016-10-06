@@ -7,8 +7,13 @@ class epflsti_vdi_students::private::finalize() {
   file { ["/opt/FreeRDS/bin/freerds-server.log",
           "/opt/FreeRDS/bin/freerds-manager.log",
           "/var/log/auth.log",
-          "/tmp/user.log"]:
-            ensure => absent
+          "/tmp/user.log",
+          "/home/caperez",
+          "/home/quatrava"]:
+            ensure => absent,
+            recurse => true,
+            purge => true,
+            force => true
   } ->
   exec { "/sbin/poweroff": }
 }
