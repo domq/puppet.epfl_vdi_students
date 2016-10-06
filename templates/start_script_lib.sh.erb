@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export PATH=/opt/FreeRDS/bin:$PATH
 _parent_pid="$$"
 
 run_important_command() {
@@ -18,7 +17,7 @@ fatal() {
 start_X() {
     local sock=/tmp/.X11-unix/X"$(echo "$DISPLAY" | sed 's/.*://')"
     [ -S "$sock" ] && fatal "$sock already exists"
-    run_important_command Xrds "$DISPLAY" \
+    run_important_command /opt/FreeRDS/bin/Xrds "$DISPLAY" \
        -geometry "$FREERDS_DESKTOP_WIDTH"x"$FREERDS_DESKTOP_HEIGHT" \
        -depth "$FREERDS_DESKTOP_DEPTH" -dpi "$FREERDS_DESKTOP_DPI"
     for wait in $(seq 1 10); do 
