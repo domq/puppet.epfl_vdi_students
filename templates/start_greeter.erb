@@ -6,5 +6,4 @@ set -e -x
 exec >> /var/log/freerds-greeter.log 2>&1
 
 start_X
-wait
-
+sleep 60  # Session ought to be replaced by the "real" one by then
