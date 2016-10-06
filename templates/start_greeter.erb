@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. "$(dirname "$0")"/../share/start_script_lib.sh
+set -e -x
+
+exec >> /var/log/freerds-greeter.log 2>&1
+
+start_X
+wait
+

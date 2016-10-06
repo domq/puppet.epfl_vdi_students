@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. "$(dirname "$0")"/../share/start_script_lib.sh
+set -e -x
+
+exec >> /var/log/freerds-xsession.log 2>&1
+
+start_X
+run_important_command /etc/X11/Xsession

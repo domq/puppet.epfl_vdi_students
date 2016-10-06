@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export PATH=/opt/FreeRDS/bin:$PATH
+_parent_pid="$$"
+
+run_important_command() {
+    "$@" &
+    local child_pid=$!
+    (wait $child_pid; kill -HUP -"$_parent_pid") &
+    trap "kill $child_pid" SIGHUP SIGTERM SIGQUIT EXIT
+}
+
+start_X() {
+  (
+      exec > /var/log/Xrdp."$DISPLAY".log 2>&1
+      run_important_command Xrdp "$DISPLAY" "$FREERDS_DESKTOP_WIDTH" "$FREERDS_DESKTOP_HEIGHT" "$FREERDS_DESKTOP_DEPTH"
+  )
+}
