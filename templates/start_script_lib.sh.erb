@@ -6,7 +6,7 @@ _parent_pid="$$"
 run_important_command() {
     "$@" &
     local child_pid=$!
-    (wait $child_pid; kill -HUP -"$_parent_pid") &
+    trap "kill -0 '$child_pid' || kill -HUP '$_parent_pid'" SIGCHLD
     trap "kill $child_pid" SIGHUP SIGTERM SIGQUIT EXIT
 }
 
