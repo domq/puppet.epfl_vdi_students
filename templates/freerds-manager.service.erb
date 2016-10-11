@@ -1,0 +1,9 @@
+[Unit]
+Description=FreeRDS manager
+After=syslog.target network.target
+
+[Service]
+ExecStart=/opt/FreeRDS/bin/freerds-manager --no-daemon
+
+[Install]
+WantedBy=multi-user.target

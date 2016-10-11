@@ -20,9 +20,36 @@ class epflsti_vdi_students::private::freerds() {
     content => template("epflsti_vdi_students/config.ini.erb"),
   }
 
-  exec { "wget -O- https://raw.githubusercontent.com/epfl-sti/FreeRDS/master/build-freerds.sh | bash":
+  package { ["docbook-xsl", "libwayland-dev"]:
+    ensure => "installed"
+  } ->
+  exec { "Compile FreeRDS from source":
+    command => "wget -O- https://raw.githubusercontent.com/epfl-sti/FreeRDS/master/build-freerds.sh | bash",
     path => $::path,
     timeout     => 1800,
     creates => "/opt/FreeRDS/bin/freerds-manager"
+  }
+
+  ensure_resource('class', 'systemd')
+  if ($::systemd_available == "true") {
+    systemd::service { 'freerds-server':
+        description  => 'FreeRDS server',
+        execstart    => '/opt/FreeRDS/bin/freerds-server --no-daemon',
+        wants        => ['network.target'],
+    } ->
+    service { 'freerds-server':
+      ensure => running
+    }  
+
+    systemd::service { 'freerds-manager':
+        description  => 'FreeRDS manager',
+        execstart    => '/opt/FreeRDS/bin/freerds-manager --no-daemon',
+        wants        => ['network.target'],
+    }
+    service { 'freerds-manager':
+      ensure => running
+    }  
+  } else {
+    warn("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
   }
 }
