@@ -13,4 +13,7 @@ class epflsti_vdi_students::private::xfce4() {
   package { $deps:
     ensure => "installed"
   }
+  package { "xscreensaver":
+    ensure => "absent"
+  }
 }
