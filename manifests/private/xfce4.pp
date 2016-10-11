@@ -26,4 +26,8 @@ class epflsti_vdi_students::private::xfce4() {
     ensure => "file",
     content => template("epflsti_vdi_students/xfce4-panel.xml.erb")
   }
+  file { "/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml":
+    ensure => "file",
+    content => template("epflsti_vdi_students/xfce4-keyboard-shortcuts.xml.erb")
+  }
 }
