@@ -32,6 +32,7 @@ class epflsti_vdi_students(
   }
 
   class { "epflsti_vdi_students::private::freerds": }
+  class { "epflsti_vdi_students::private::xfce4": }
   
   if ($finalize) {
     stage { "finalize":

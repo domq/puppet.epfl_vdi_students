@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. "$(dirname "$0")"/../share/start_script_lib.sh
+set -e -x
+
+if [ -d "$HOME" ]; then
+    exec > $HOME/.xsession-errors 2>&1
+else
+    exec > /tmp/xsession-$USER.log 2>&1
+fi
+
+start_X
+/etc/X11/Xsession
+

@@ -11,8 +11,9 @@ class epflsti_vdi_students::private::freerds() {
     content => template("epflsti_vdi_students/start_greeter.erb"),
   }
 
-  file { "/opt/FreeRDS/sbin/start_xession":
+  file { "/opt/FreeRDS/sbin/start_xsession":
     content => template("epflsti_vdi_students/start_xsession.erb"),
+    mode => "0755"
   }
 
   file { "/opt/FreeRDS/etc/freerds/config.ini":
