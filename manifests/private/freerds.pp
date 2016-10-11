@@ -38,7 +38,8 @@ class epflsti_vdi_students::private::freerds() {
         wants        => ['network.target'],
     } ->
     service { 'freerds-server':
-      ensure => running
+      ensure => running,
+      enable => true
     }  
 
     systemd::service { 'freerds-manager':
@@ -47,7 +48,8 @@ class epflsti_vdi_students::private::freerds() {
         wants        => ['network.target'],
     }
     service { 'freerds-manager':
-      ensure => running
+      ensure => running,
+      enable => true
     }  
   } else {
     warn("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
