@@ -20,11 +20,9 @@ class epflsti_vdi_students::private::freerds() {
     content => template("epflsti_vdi_students/config.ini.erb"),
   }
 
-  # TODO: this hasn't really been tested and in fact, is quite unlikely
-  # to work. E.g. the script install /usr/local/bin/cmake which links
-  # to a libcurl that doesn't SSL.
   exec { "wget -O- https://raw.githubusercontent.com/epfl-sti/FreeRDS/master/build-freerds.sh | bash":
     path => $::path,
+    timeout     => 1800,
     creates => "/opt/FreeRDS/bin/freerds-manager"
   }
 }
