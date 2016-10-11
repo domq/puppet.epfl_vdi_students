@@ -1,9 +1,12 @@
 # Class: epflsti_vdi_students
 #
 # Turn your VM into a master template for a students course.
+
 class epflsti_vdi_students(
   $finalize = false
 ) {
+  ensure_resource("class", "quirks")
+
   class { "epfl_sso": }
   class { "epfl_sso::krb5": }
 
