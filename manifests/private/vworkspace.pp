@@ -1,4 +1,12 @@
-class epflsti_vdi_students::private::freerds() {
+# Class: epflsti_vdi_students::private::vworkspace
+#
+# Makes your VM able to receive connections from Dell vWorkspace
+#
+# * FreeRDS et al is compiled from source at https://github.com/epfl-sti/FreeRDS and
+#   https://github.com/epfl-sti/FreeRDP
+# * qdcsvc is packaged as a binary-only .deb out of the VPSI-provided master images
+#
+class epflsti_vdi_students::private::vworkspace() {
    file { [  "/opt", "/opt/FreeRDS", "/opt/FreeRDS/share", "/opt/FreeRDS/sbin",
              "/opt/FreeRDS/etc", "/opt/FreeRDS/etc/freerds" ]:
     ensure => "directory"
@@ -53,5 +61,22 @@ class epflsti_vdi_students::private::freerds() {
     }  
   } else {
     warn("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
+  }
+
+  case $::osfamily {
+    Debian: {
+      apt::source { 'sti-soft':
+        location => inline_template('http://sti-soft.epfl.ch/<%= @operatingsystem.downcase %>'),
+        key => {
+          id      => 'FEB223CCC11BB8D39DCC33EDE982B51A904A23B7',
+          source  => 'http://sti-soft.epfl.ch/ubuntu/sti-soft.epfl.ch.gpg.key',
+        },
+        release  => $::lsbdistcodename
+      } ->
+      package { "qdcsvc": } 
+    }
+    default: {
+      fail("Don't know how to install qdcsvc for ${::operatingsystem}")
+    }
   }
 }

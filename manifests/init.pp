@@ -16,9 +16,21 @@ class epflsti_vdi_students(
   class { "epfl_sso::krb5": }
 
   class { "epflsti_vdi_students::private::local_groups": }
-  class { "epflsti_vdi_students::private::freerds": }
+  class { "epflsti_vdi_students::private::vworkspace": }
   class { "epflsti_vdi_students::private::xfce4": }
 
+  case $::osfamily {
+    'Debian': {
+      $smbnetfs_package = "smbnetfs"
+    }
+    'RedHat': {
+      fail("Unable to install smbnetfs")
+    }
+  }
+  package { $smbnetfs_package:
+    ensure => "installed"
+  }
+  
   if ($finalize) {
     stage { "finalize":
       require => Stage["main"]
