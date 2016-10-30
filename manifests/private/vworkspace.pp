@@ -17,6 +17,7 @@ class epflsti_vdi_students::private::vworkspace() {
 
   file { "/opt/FreeRDS/sbin/start_greeter":
     content => template("epflsti_vdi_students/start_greeter.erb"),
+    mode => "0755"
   }
 
   file { "/opt/FreeRDS/sbin/start_xsession":
