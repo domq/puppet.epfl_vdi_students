@@ -61,7 +61,7 @@ class epflsti_vdi_students::private::vworkspace() {
       enable => true
     }  
   } else {
-    warn("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
+    warning("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
   }
 
   case $::osfamily {
