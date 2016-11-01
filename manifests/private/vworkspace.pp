@@ -80,4 +80,8 @@ class epflsti_vdi_students::private::vworkspace() {
       fail("Don't know how to install qdcsvc for ${::operatingsystem}")
     }
   }
+
+  file { ["/opt/FreeRDS/var/run/freerds-server.pid", "/opt/FreeRDS/var/run/freerds-manager.pid"]:
+    ensure => "absent"
+  }
 }
