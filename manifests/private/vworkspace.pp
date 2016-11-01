@@ -17,6 +17,7 @@ class epflsti_vdi_students::private::vworkspace() {
 
   file { "/opt/FreeRDS/sbin/start_greeter":
     content => template("epflsti_vdi_students/start_greeter.erb"),
+    mode => "0755"
   }
 
   file { "/opt/FreeRDS/sbin/start_xsession":
@@ -60,7 +61,7 @@ class epflsti_vdi_students::private::vworkspace() {
       enable => true
     }  
   } else {
-    warn("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
+    warning("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
   }
 
   case $::osfamily {
