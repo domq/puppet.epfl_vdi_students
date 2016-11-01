@@ -15,6 +15,10 @@ class epflsti_vdi_students(
   class { "epfl_sso": }
   class { "epfl_sso::krb5": }
 
+  package { "open-vm-tools":
+    ensure => 'installed'
+  }
+  
   class { "epflsti_vdi_students::private::local_groups": }
   class { "epflsti_vdi_students::private::vworkspace": }
   class { "epflsti_vdi_students::private::xfce4": }
