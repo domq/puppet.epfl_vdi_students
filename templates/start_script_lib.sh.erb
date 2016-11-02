@@ -23,5 +23,5 @@ start_X() {
     for wait in $(seq 1 10); do 
         if [ -S "$sock" ]; then break; else sleep 0.1; fi
     done
-    run_important_command freerds-channels
+    run_important_command env LD_LIBRARY_PATH=/opt/FreeRDS/lib/plugins freerds-channels
 }
