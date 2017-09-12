@@ -60,6 +60,12 @@ class epflsti_vdi_students::private::vworkspace() {
       ensure => running,
       enable => true
     }  
+
+    service { 'freerds':
+      ensure => stopped,
+      enable => false
+    }
+
   } else {
     warning("System V-style setup of FreeRDS is not supported yet. FreeRDS won't be started.")
   }
