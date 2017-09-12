@@ -9,27 +9,27 @@
   "project_page": "https://github.com/epfl-sti/puppet.epflsti_vdi_students",
   "dependencies": [
     {
-        "name":"puppetlabs-stdlib",
+        "name":"puppetlabs/stdlib",
         "version_requirement":">= 1.0.0"
     },
     {
-      "name": "herculesteam-augeasproviders_pam",
+      "name": "herculesteam/augeasproviders_pam",
       "version_requirement": ">= 0.0.0"
     },
     {
-      "name": "epflsti-epfl_sso",
+      "name": "epflsti/epfl_sso",
       "version_requirement": ">= 0.2.0"
     },
     {
-      "name": "epflsti-quirks",
+      "name": "epflsti/quirks",
       "version_requirement": ">= 0.0.0"
     },
     {
-      "name": "justin8-systemd",
+      "name": "justin8/systemd",
       "version_requirement": ">= 0.4.0"
     },
     {
-      "name": "puppetlabs-apt",
+      "name": "puppetlabs/apt",
       "version_requirement": ">= 2.3.0"
     }
   ]
