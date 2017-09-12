@@ -12,8 +12,7 @@ class epflsti_vdi_students(
 ) {
   ensure_resource("class", "quirks")
 
-  class { "epfl_sso": }
-  class { "epfl_sso::krb5": }
+  class { "epfl_sso": sshd_gssapi_auth => true }
 
   package { "open-vm-tools":
     ensure => 'installed'
