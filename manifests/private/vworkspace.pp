@@ -40,10 +40,6 @@ class epflsti_vdi_students::private::vworkspace() {
         timeout     => 1800,
         creates => "/opt/FreeRDS/bin/freerds-manager"
       }
-      Apt::Source["sti-soft"] -> package { "qdcsvc": } 
-    }
-    "compiled_from_source": {
-      Apt::Source["sti-soft"] -> package { "qdcsvc": } 
     }
   }  # case $::freerds_flavor
 
@@ -89,11 +85,31 @@ class epflsti_vdi_students::private::vworkspace() {
         },
         release  => $::lsbdistcodename
       }
+
+      # qdcsvc is the only part of vWorkspace for Linux that is fully
+      # self-contained in a .deb at this point. Remove the
+      # VPSI-provided one whenever possible.
+      if ($::systemd_available == "true") {
+        Apt::Source["sti-soft"] -> package { "qdcsvc": }
+        file { ["/usr/local/bin/qdcip.all",
+                "/usr/local/bin/qdcsvc",
+                "/etc/rc2.d/S01qdcsvc.sh",
+                "/etc/rc3.d/S01qdcsvc.sh",
+                "/etc/rc0.d/K01qdcsvc.sh",
+                "/etc/rc6.d/K01qdcsvc.sh",
+                "/etc/rc1.d/K01qdcsvc.sh",
+                "/etc/rc4.d/S01qdcsvc.sh",
+                "/etc/init.d/qdcsvc.sh",
+                "/etc/rc5.d/S01qdcsvc.sh"]:
+                  ensure => "absent"
+        }
+        File["/etc/init.d/qdcsvc.sh"] ~> Exec["systemd-daemon-reload"]
+      }
     }
     default: {
       fail("Don't know how to install qdcsvc for ${::operatingsystem}")
     }
-  }
+  }  # case $::osfamily
 
   file { ["/opt/FreeRDS/var/run/freerds-server.pid", "/opt/FreeRDS/var/run/freerds-manager.pid"]:
     ensure => "absent"
