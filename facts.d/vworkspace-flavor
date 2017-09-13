@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -x "/usr/local/bin/qdcip.all" ]; then
+   echo qdcip_flavor=vpsi
+else
+   echo qdcip_flavor=none
+fi
+
+if [ -d "/opt/FreeRDS" ]; then
+   echo freerds_flavor=none
+elif [ -n "$(find /opt/FreeRDS/ -name xfreerdp.1)" ]; then
+    echo freerds_flavor=compiled_from_source
+else
+    echo freerds_flavor=vpsi_image
+fi
