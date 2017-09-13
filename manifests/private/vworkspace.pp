@@ -40,8 +40,12 @@ class epflsti_vdi_students::private::vworkspace() {
         timeout     => 1800,
         creates => "/opt/FreeRDS/bin/freerds-manager"
       }
+      Apt::Source["sti-soft"] -> package { "qdcsvc": } 
     }
-  }  # No FreeRDS available
+    "compiled_from_source": {
+      Apt::Source["sti-soft"] -> package { "qdcsvc": } 
+    }
+  }  # case $::freerds_flavor
 
   ensure_resource('class', 'systemd')
   if ($::systemd_available == "true") {
@@ -84,8 +88,7 @@ class epflsti_vdi_students::private::vworkspace() {
           source  => 'http://sti-soft.epfl.ch/ubuntu/sti-soft.epfl.ch.gpg.key',
         },
         release  => $::lsbdistcodename
-      } ->
-      package { "qdcsvc": } 
+      }
     }
     default: {
       fail("Don't know how to install qdcsvc for ${::operatingsystem}")
