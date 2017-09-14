@@ -3,8 +3,9 @@
 # Makes your VM able to receive connections from Dell vWorkspace
 #
 # * FreeRDS et al is compiled from source at https://github.com/epfl-sti/FreeRDS and
-#   https://github.com/epfl-sti/FreeRDP
-# * qdcsvc is packaged as a binary-only .deb out of the VPSI-provided master images
+#   https://github.com/epfl-sti/FreeRDP (unless it is already installed e.g. from a
+#   VPSI template), and configured
+# * qdcsvc is installed out of sti-soft.epfl.ch
 #
 class epflsti_vdi_students::private::vworkspace() {
   case $::freerds_flavor {
