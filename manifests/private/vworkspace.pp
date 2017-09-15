@@ -79,12 +79,14 @@ class epflsti_vdi_students::private::vworkspace() {
     Debian: {
       apt::source { 'sti-soft':
         location => inline_template('http://sti-soft.epfl.ch/<%= @operatingsystem.downcase %>'),
-        architecture => "amd64",
         key => {
           id      => 'FEB223CCC11BB8D39DCC33EDE982B51A904A23B7',
           source  => 'http://sti-soft.epfl.ch/ubuntu/sti-soft.epfl.ch.gpg.key',
         },
-        release  => $::lsbdistcodename
+        release  => $::lsbdistcodename,
+        include  => {
+          'src' => true,
+        }
       }
 
       # qdcsvc is the only part of vWorkspace for Linux that is fully
